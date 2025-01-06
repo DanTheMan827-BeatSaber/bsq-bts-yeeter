@@ -44,22 +44,22 @@
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^5.1.9",
+      "versionRange": "^6.3.0",
       "additionalData": {}
     },
     {
-      "id": "paper",
-      "versionRange": "^3.6.4",
+      "id": "paper2_scotland2",
+      "versionRange": "^4.3.2",
       "additionalData": {}
     },
     {
       "id": "bs-cordl",
-      "versionRange": "3700.*",
+      "versionRange": "4000.*",
       "additionalData": {}
     },
     {
       "id": "scotland2",
-      "versionRange": "^0.1.4",
+      "versionRange": "^0.1.6",
       "additionalData": {
         "includeQmod": false
       }
