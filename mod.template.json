@@ -5,12 +5,14 @@
   "id": "${mod_id}",
   "coverImage": "cover.png",
   "author": "gabriella ✨#6859",
-  "version": "0.3.0",
+  "version": "${version}",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.37.0_9064817954",
+  "packageVersion": "1.40.1_3323",
   "description": "Stops the annoying BTS characters from spawning whilst playing their maps.",
   "dependencies": [],
-  "modFiles": ["${binary}"],
+  "modFiles": [
+    "${binary}"
+  ],
   "libraryFiles": [],
   "fileCopies": []
 }

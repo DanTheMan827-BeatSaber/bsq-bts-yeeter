@@ -10,10 +10,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-add_compile_definitions(MOD_ID="${CMAKE_PROJECT_NAME}")
-add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
-
-add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC)
+add_compile_options(-frtti -fexceptions -fvisibility=hidden -fPIE -fPIC -Wno-invalid-offsetof)
 
 # Include. Include order matters!
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
@@ -46,6 +43,9 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/strip.cmake)
 project( bts-yeeter
         VERSION ${PACKAGE_VERSION})
 
+add_compile_definitions(MOD_ID="${CMAKE_PROJECT_NAME}")
+add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
+
 # Set COMPILE_ID for qpm purposes
 set(COMPILE_ID ${CMAKE_PROJECT_NAME})
 
@@ -58,8 +58,6 @@ add_library(
         SHARED
         ${cpp_file_list}
         ${c_file_list}
-        ${inline_hook_c}
-        ${inline_hook_cpp}
 )
 
 # for inline hook
@@ -75,3 +73,4 @@ RECURSE_FILES(src_inline_hook_beatsaber_hook_local_extra_cpp ${EXTERN_DIR}/inclu
 
 target_sources(${COMPILE_ID} PRIVATE ${src_inline_hook_beatsaber_hook_local_extra_c})
 target_sources(${COMPILE_ID} PRIVATE ${src_inline_hook_beatsaber_hook_local_extra_cpp})
+include("${CMAKE_CURRENT_SOURCE_DIR}/common-stuff/cmake/include-all.cmake")

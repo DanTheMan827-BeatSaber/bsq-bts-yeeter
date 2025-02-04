@@ -1,49 +1,37 @@
+#include "Hooking.hpp"
+#include "Logger.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 #include "main.hpp"
-
+#include "modInfo.hpp"
 #include "scotland2/shared/modloader.h"
-#include "GlobalNamespace/BTSCharacterSpawnController.hpp"
-#include "GlobalNamespace/BTSCharacterSpawnAnimationController.hpp"
 
-using namespace GlobalNamespace;
+/// @brief Called at the early stages of game loading
+/// @param info The mod info.  Update this with your mod's info.
+/// @return
+MOD_EXPORT_FUNC void setup(CModInfo& info) {
+    // Convert the mod info to a C struct and set that as the modloader info.
+    info = modInfo.to_c();
 
-MAKE_HOOK_MATCH(BTSCharacterSpawnAnimationController_PlayAnimation, &BTSCharacterSpawnAnimationController::PlayAnimation, void, BTSCharacterSpawnAnimationController* self) {
-  BTSCharacterSpawnAnimationController_PlayAnimation(self);
-  self->StopAnimation();
-  PaperLogger.info("BTS character was detected and stopped.");
+    Logger.info("Completed setup!");
 }
 
-MAKE_HOOK_MATCH(BTSCharacterSpawnAnimationController_ResumeAnimation, &BTSCharacterSpawnAnimationController::ResumeAnimation, void, BTSCharacterSpawnAnimationController* self) {
-  BTSCharacterSpawnAnimationController_ResumeAnimation(self);
-  self->StopAnimation();
-  PaperLogger.info("BTS character was detected and stopped.");
+/// @brief Called early on in the game loading
+/// @return
+MOD_EXPORT_FUNC void load() {
+    // Initialize il2cpp functions
+    il2cpp_functions::Init();
+
+    // install early hooks
+    Logger.info("Installing early hooks");
+    INSTALL_EARLY_HOOKS();
+    Logger.info("Finished installing early hooks");
 }
 
-/**
- * Stores the ID and version of our mod, and is sent to the modloader upon startup
- */
-static modloader::ModInfo modInfo{MOD_ID, VERSION, 0};
-
-
-/**
- * Called at the early stages of game loading
- */
-MOD_EXTERN_FUNC void setup(CModInfo *info) noexcept {
-  *info = modInfo.to_c();
-
-  // File logging
-  Paper::Logger::RegisterFileContextId(PaperLogger.tag);
-
-  PaperLogger.info("Completed setup!");
-}
-
-/**
- * Called later on in the game loading - a good time to install function hooks
- */
-MOD_EXTERN_FUNC void late_load() noexcept {
-  il2cpp_functions::Init();
-
-  PaperLogger.info("Installing hooks...");
-  INSTALL_HOOK(PaperLogger, BTSCharacterSpawnAnimationController_PlayAnimation);
-  INSTALL_HOOK(PaperLogger, BTSCharacterSpawnAnimationController_ResumeAnimation);
-  PaperLogger.info("Installed all hooks!");
+/// @brief Called later on in the game loading - a good time to install function hooks
+/// @return
+MOD_EXPORT_FUNC void late_load() {
+    // Install late hooks
+    Logger.info("Installing late hooks");
+    INSTALL_LATE_HOOKS();
+    Logger.info("Finished installing late hooks");
 }

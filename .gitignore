@@ -67,4 +67,4 @@ extern.cmake
 
 # QMOD Schema
 mod.json.schema
-ndkpath.txt
+include/Hooking.hpp
