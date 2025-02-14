@@ -40,7 +40,9 @@
       ],
       "qmod": [
         "qpm s build",
-        "qpm qmod zip"
+        "qpm s update-version",
+        "qpm qmod zip --skip_build",
+        "qpm s update-version -- -restore"
       ],
       "rebuild": [
         "qpm s deepclean",
@@ -58,22 +60,28 @@
       ],
       "tomb": [
         "pwsh ./scripts/pull-tombstone.ps1"
+      ],
+      "update-version": [
+        "pwsh ./scripts/update-version.ps1 $0:?"
       ]
     },
-    "ndk": "^27.0.0",
+    "ndk": "^27.2.12479018",
     "qmodIncludeDirs": [
       "./build",
       "./extern/libs"
     ],
-    "qmodIncludeFiles": [
-      "./cover.png"
-    ],
+    "qmodIncludeFiles": [],
     "qmodOutput": "./BTS Yeeter.qmod"
   },
   "dependencies": [
     {
-      "id": "paper2_scotland2",
-      "versionRange": "^4.5.0",
+      "id": "autohooks",
+      "versionRange": "^0.1.0",
+      "additionalData": {}
+    },
+    {
+      "id": "beatsaber-hook",
+      "versionRange": "^6.4.0",
       "additionalData": {}
     },
     {
@@ -82,8 +90,8 @@
       "additionalData": {}
     },
     {
-      "id": "beatsaber-hook",
-      "versionRange": "^6.3.0",
+      "id": "paper2_scotland2",
+      "versionRange": "^4.5.0",
       "additionalData": {}
     },
     {
